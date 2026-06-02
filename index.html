@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ErgoOT — Comprehensive Ergonomics &amp; Workplace Wellness</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#1a6b3c;--green-light:#e8f5ee;--green-mid:#2d9158;--green-dark:#0f4526;
+  --teal:#0f6e56;--teal-light:#e1f5ee;
+  --navy:#0d2137;--navy-mid:#1a3a5c;
+  --white:#ffffff;--off-white:#f8f9f6;--gray-50:#f3f4f2;--gray-100:#e5e7e3;
+  --gray-300:#b0b5ac;--gray-500:#6b7068;--gray-700:#3d4239;--gray-900:#1c1f1a;
+  --accent:#2d9158;--accent-hover:#1a6b3c;
+  --danger:#c0392b;--warning:#e67e22;
+  --radius-sm:6px;--radius-md:10px;--radius-lg:16px;--radius-xl:24px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.07);
+  --shadow-md:0 4px 16px rgba(0,0,0,.09);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.12);
+  --font-main:'DM Sans',sans-serif;
+  --font-display:'DM Serif Display',serif;
+  --nav-h:64px;
+  --transition:.22s ease;
+}
+body{font-family:var(--font-main);background:var(--white);color:var(--gray-900);line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ---- NAV ---- */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--gray-100);height:var(--nav-h);display:flex;align-items:center;padding:0 5%}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1200px;margin:0 auto}
+.nav-logo{font-family:var(--font-display);font-size:1.4rem;color:var(--green-dark);display:flex;align-items:center;gap:8px}
+.nav-logo span{font-family:var(--font-main);font-size:.75rem;font-weight:500;color:var(--green);background:var(--green-light);padding:2px 8px;border-radius:20px}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{font-size:.85rem;font-weight:500;color:var(--gray-700);padding:6px 12px;border-radius:var(--radius-sm);transition:background var(--transition),color var(--transition)}
+.nav-links a:hover{background:var(--green-light);color:var(--green)}
+.nav-links a.cta-btn{background:var(--accent);color:#fff;padding:8px 18px;border-radius:20px}
+.nav-links a.cta-btn:hover{background:var(--accent-hover)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--gray-700);border-radius:2px;transition:var(--transition)}
+.mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:#fff;border-bottom:1px solid var(--gray-100);padding:16px 5%;z-index:999;flex-direction:column;gap:4px}
+.mobile-menu a{display:block;padding:10px 12px;font-size:.9rem;font-weight:500;color:var(--gray-700);border-radius:var(--radius-sm)}
+.mobile-menu a:hover{background:var(--green-light);color:var(--green)}
+.mobile-menu.open{display:flex}
+
+/* ---- HERO ---- */
+.hero{min-height:100vh;padding:calc(var(--nav-h) + 60px) 5% 80px;display:grid;place-items:center;background:linear-gradient(160deg,var(--off-white) 60%,var(--green-light) 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(45,145,88,.08),transparent 70%);pointer-events:none}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-light);color:var(--green);font-size:.78rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:20px}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,4.5vw,3.4rem);line-height:1.15;color:var(--navy);margin-bottom:22px}
+.hero h1 em{color:var(--accent);font-style:italic}
+.hero p{font-size:1.05rem;color:var(--gray-500);max-width:480px;margin-bottom:32px;line-height:1.75}
+.hero-btns{display:flex;flex-wrap:wrap;gap:14px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-size:.95rem;font-weight:500;padding:13px 26px;border-radius:30px;transition:background var(--transition),transform var(--transition);border:none;cursor:pointer}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--green);font-size:.95rem;font-weight:500;padding:13px 26px;border-radius:30px;border:1.5px solid var(--accent);transition:background var(--transition);cursor:pointer}
+.btn-secondary:hover{background:var(--green-light)}
+.hero-card{background:#fff;border-radius:var(--radius-xl);padding:32px;box-shadow:var(--shadow-lg);border:1px solid var(--gray-100)}
+.hero-card-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.hero-card-icon{width:44px;height:44px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.hero-card-title{font-weight:600;color:var(--navy)}
+.hero-card-sub{font-size:.8rem;color:var(--gray-500)}
+.risk-bar-wrap{margin:14px 0}
+.risk-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--gray-500);margin-bottom:6px}
+.risk-bar{height:8px;border-radius:4px;background:var(--gray-100)}
+.risk-fill{height:100%;border-radius:4px;transition:width 1s ease}
+.risk-fill.low{background:var(--accent)}
+.risk-fill.med{background:var(--warning)}
+.risk-fill.high{background:var(--danger)}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.stat-chip{background:var(--green-light);border-radius:var(--radius-md);padding:12px;text-align:center}
+.stat-chip strong{display:block;font-family:var(--font-display);font-size:1.3rem;color:var(--green-dark)}
+.stat-chip span{font-size:.72rem;color:var(--green);font-weight:500}
+
+/* ---- SECTIONS common ---- */
+section{padding:80px 5%}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-light);color:var(--green);font-size:.75rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:12px}
+.section-title{font-family:var(--font-display);font-size:clamp(1.7rem,3.5vw,2.6rem);color:var(--navy);margin-bottom:14px}
+.section-sub{font-size:1rem;color:var(--gray-500);max-width:580px;line-height:1.75}
+.section-header{text-align:center;margin-bottom:52px}
+.section-header .section-sub{margin:0 auto}
+
+/* ---- ABOUT US ---- */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-values{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.value-card{background:var(--off-white);border-radius:var(--radius-md);padding:20px;border:1px solid var(--gray-100)}
+.value-icon{font-size:1.4rem;margin-bottom:10px}
+.value-title{font-weight:600;font-size:.9rem;color:var(--navy);margin-bottom:5px}
+.value-desc{font-size:.82rem;color:var(--gray-500);line-height:1.6}
+.about-img-wrap{background:linear-gradient(145deg,var(--green-light),var(--teal-light));border-radius:var(--radius-xl);padding:40px;display:flex;flex-direction:column;gap:20px}
+.founder-card{background:#fff;border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow-sm)}
+.founder-avatar{width:56px;height:56px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:12px}
+.founder-name{font-weight:600;color:var(--navy);margin-bottom:4px}
+.founder-title{font-size:.82rem;color:var(--green);margin-bottom:14px}
+.founder-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--green-light);color:var(--green)}
+.mission-strip{background:var(--green-dark);color:#fff;border-radius:var(--radius-lg);padding:20px;font-size:.88rem;line-height:1.7}
+
+/* ---- CHATBOT SECTION ---- */
+#chatbot-section{background:var(--gray-50)}
+.chatbot-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:60px;align-items:start}
+.chatbot-info p{font-size:.95rem;color:var(--gray-500);line-height:1.75;margin-bottom:20px}
+.topic-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.topic-pill{font-size:.78rem;font-weight:500;padding:6px 14px;border-radius:20px;background:#fff;border:1px solid var(--gray-100);color:var(--gray-700);cursor:pointer;transition:background var(--transition),color var(--transition),border-color var(--transition)}
+.topic-pill:hover{background:var(--green-light);color:var(--green);border-color:var(--accent)}
+.chatbox{background:#fff;border-radius:var(--radius-xl);box-shadow:var(--shadow-md);border:1px solid var(--gray-100);overflow:hidden;display:flex;flex-direction:column;height:520px}
+.chatbox-header{background:var(--green-dark);color:#fff;padding:16px 20px;display:flex;align-items:center;gap:12px}
+.chatbox-avatar{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.chatbox-title{font-weight:600;font-size:.95rem}
+.chatbox-sub{font-size:.72rem;opacity:.75}
+.chat-status{width:8px;height:8px;border-radius:50%;background:#4caf50;margin-left:auto}
+.chatbox-messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
+.msg{max-width:82%;font-size:.87rem;line-height:1.6}
+.msg-bot{align-self:flex-start}
+.msg-user{align-self:flex-end}
+.msg-bubble{padding:11px 15px;border-radius:14px}
+.msg-bot .msg-bubble{background:var(--gray-50);border:1px solid var(--gray-100);color:var(--gray-900);border-radius:4px 14px 14px 14px}
+.msg-user .msg-bubble{background:var(--accent);color:#fff;border-radius:14px 14px 4px 14px}
+.msg-label{font-size:.7rem;color:var(--gray-300);margin-bottom:4px}
+.expert-cta-msg{background:var(--green-light);border:1px solid rgba(45,145,88,.25);border-radius:12px;padding:14px;margin-top:6px;font-size:.82rem;color:var(--green-dark)}
+.expert-cta-btn{display:inline-block;margin-top:8px;background:var(--accent);color:#fff;font-size:.78rem;font-weight:600;padding:7px 16px;border-radius:20px;cursor:pointer;border:none;transition:background var(--transition)}
+.expert-cta-btn:hover{background:var(--accent-hover)}
+.chatbox-input{display:flex;gap:10px;padding:14px 16px;border-top:1px solid var(--gray-100)}
+.chatbox-input input{flex:1;border:1px solid var(--gray-100);border-radius:24px;padding:10px 16px;font-size:.87rem;font-family:var(--font-main);outline:none;transition:border-color var(--transition)}
+.chatbox-input input:focus{border-color:var(--accent)}
+.chatbox-input button{background:var(--accent);color:#fff;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:background var(--transition)}
+.chatbox-input button:hover{background:var(--accent-hover)}
+
+/* ---- FREE ASSESSMENT ---- */
+#assessment{}
+.assessment-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:start}
+.assess-intro p{font-size:.95rem;color:var(--gray-500);line-height:1.75;margin:14px 0 20px}
+.assess-features{display:flex;flex-direction:column;gap:10px}
+.assess-feat{display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--gray-700)}
+.assess-feat::before{content:'✓';color:var(--accent);font-weight:700;font-size:.9rem}
+.assessment-card{background:#fff;border-radius:var(--radius-xl);box-shadow:var(--shadow-md);border:1px solid var(--gray-100);overflow:hidden}
+.assess-progress{height:5px;background:var(--gray-100);position:relative}
+.assess-progress-fill{height:100%;background:var(--accent);transition:width .5s ease}
+.assess-header{padding:24px 28px 16px;border-bottom:1px solid var(--gray-100)}
+.assess-step-label{font-size:.75rem;color:var(--gray-500);font-weight:500;margin-bottom:4px}
+.assess-q{font-size:1rem;font-weight:600;color:var(--navy);line-height:1.5}
+.assess-body{padding:24px 28px}
+.assess-options{display:flex;flex-direction:column;gap:10px}
+.assess-opt{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1.5px solid var(--gray-100);border-radius:var(--radius-md);cursor:pointer;transition:border-color var(--transition),background var(--transition);font-size:.88rem;color:var(--gray-700)}
+.assess-opt:hover{border-color:var(--accent);background:var(--green-light);color:var(--green-dark)}
+.assess-opt.selected{border-color:var(--accent);background:var(--green-light);color:var(--green-dark);font-weight:500}
+.assess-opt-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--gray-300);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color var(--transition)}
+.assess-opt.selected .assess-opt-dot{border-color:var(--accent);background:var(--accent)}
+.assess-opt.selected .assess-opt-dot::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff}
+.assess-footer{padding:16px 28px;border-top:1px solid var(--gray-100);display:flex;justify-content:space-between;align-items:center}
+.assess-nav-btn{background:var(--accent);color:#fff;border:none;border-radius:24px;padding:10px 24px;font-size:.88rem;font-weight:500;cursor:pointer;font-family:var(--font-main);transition:background var(--transition)}
+.assess-nav-btn:hover{background:var(--accent-hover)}
+.assess-nav-btn.outline{background:transparent;color:var(--gray-700);border:1.5px solid var(--gray-200)}
+.assess-nav-btn.outline:hover{background:var(--gray-50)}
+.assess-result{padding:28px;text-align:center;display:none}
+.result-score{width:100px;height:100px;border-radius:50%;margin:0 auto 20px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.result-score.low{background:var(--green-light);border:3px solid var(--accent)}
+.result-score.medium{background:#fff8e1;border:3px solid var(--warning)}
+.result-score.high{background:#fef0f0;border:3px solid var(--danger)}
+.result-score-num{font-family:var(--font-display);font-size:1.8rem;line-height:1}
+.result-score-label{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.result-score.low .result-score-num,.result-score.low .result-score-label{color:var(--green)}
+.result-score.medium .result-score-num,.result-score.medium .result-score-label{color:var(--warning)}
+.result-score.high .result-score-num,.result-score.high .result-score-label{color:var(--danger)}
+.result-title{font-family:var(--font-display);font-size:1.3rem;color:var(--navy);margin-bottom:8px}
+.result-desc{font-size:.88rem;color:var(--gray-500);line-height:1.7;margin-bottom:20px}
+.result-recs{text-align:left;background:var(--gray-50);border-radius:var(--radius-md);padding:16px;margin-bottom:20px}
+.result-rec{font-size:.84rem;color:var(--gray-700);padding:6px 0;display:flex;gap:8px}
+.result-rec::before{content:'→';color:var(--accent);font-weight:700}
+
+/* ---- PREMIUM ASSESSMENT ---- */
+#premium-assessment{background:linear-gradient(160deg,var(--navy) 60%,var(--green-dark) 100%);color:#fff}
+#premium-assessment .section-title{color:#fff}
+#premium-assessment .section-sub{color:rgba(255,255,255,.65)}
+#premium-assessment .section-badge{background:rgba(255,255,255,.12);color:#fff}
+.prem-assess-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:40px}
+.prem-assess-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-lg);padding:22px;transition:background var(--transition),transform var(--transition);cursor:pointer}
+.prem-assess-card:hover{background:rgba(255,255,255,.13);transform:translateY(-3px)}
+.prem-assess-icon{font-size:1.6rem;margin-bottom:12px}
+.prem-assess-title{font-weight:600;font-size:.95rem;margin-bottom:6px}
+.prem-assess-items{list-style:none}
+.prem-assess-items li{font-size:.77rem;color:rgba(255,255,255,.6);padding:3px 0;display:flex;gap:6px;align-items:flex-start}
+.prem-assess-items li::before{content:'·';color:var(--green-mid);font-weight:900;font-size:1rem;line-height:1}
+.prem-badge{display:inline-flex;align-items:center;gap:6px;background:var(--warning);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:3px 10px;border-radius:20px}
+.prem-after{margin-top:40px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-xl);padding:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px}
+.prem-after-item{text-align:center}
+.prem-after-item-icon{font-size:1.5rem;margin-bottom:8px}
+.prem-after-item-title{font-weight:600;font-size:.88rem;margin-bottom:4px}
+.prem-after-item-desc{font-size:.77rem;color:rgba(255,255,255,.55);line-height:1.5}
+
+/* ---- CONSULTATION ---- */
+#consultation{background:var(--gray-50)}
+.consult-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.expert-cards{display:flex;flex-direction:column;gap:14px}
+.expert-card{background:#fff;border-radius:var(--radius-lg);padding:20px;border:1px solid var(--gray-100);display:flex;gap:16px;align-items:flex-start;transition:box-shadow var(--transition);cursor:pointer}
+.expert-card:hover{box-shadow:var(--shadow-md);border-color:var(--accent)}
+.expert-avatar{width:52px;height:52px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.expert-name{font-weight:600;color:var(--navy);margin-bottom:2px}
+.expert-role{font-size:.78rem;color:var(--green);font-weight:500;margin-bottom:6px}
+.expert-bio{font-size:.8rem;color:var(--gray-500);line-height:1.5}
+.expert-avail{display:flex;align-items:center;gap:5px;margin-top:8px;font-size:.75rem;color:var(--accent);font-weight:500}
+.booking-card{background:#fff;border-radius:var(--radius-xl);box-shadow:var(--shadow-md);border:1px solid var(--gray-100);overflow:hidden}
+.booking-header{background:var(--green-dark);color:#fff;padding:22px 24px}
+.booking-title{font-weight:600;font-size:1.05rem;margin-bottom:4px}
+.booking-sub{font-size:.82rem;opacity:.7}
+.booking-body{padding:24px}
+.form-row{margin-bottom:16px}
+.form-label{display:block;font-size:.8rem;font-weight:500;color:var(--gray-700);margin-bottom:6px}
+.form-input{width:100%;border:1.5px solid var(--gray-100);border-radius:var(--radius-md);padding:10px 14px;font-size:.88rem;font-family:var(--font-main);outline:none;transition:border-color var(--transition);background:#fff;color:var(--gray-900)}
+.form-input:focus{border-color:var(--accent)}
+select.form-input{cursor:pointer}
+.calendar-mini{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:6px}
+.cal-day{text-align:center;font-size:.72rem;padding:6px 4px;border-radius:6px;cursor:pointer;transition:background var(--transition),color var(--transition)}
+.cal-day.header{color:var(--gray-500);font-weight:600;cursor:default}
+.cal-day.avail{background:var(--green-light);color:var(--green-dark)}
+.cal-day.avail:hover{background:var(--accent);color:#fff}
+.cal-day.selected{background:var(--accent);color:#fff;font-weight:600}
+.cal-day.empty{background:transparent}
+.time-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.time-slot{background:var(--gray-50);border:1.5px solid var(--gray-100);border-radius:var(--radius-sm);padding:8px;text-align:center;font-size:.78rem;cursor:pointer;transition:all var(--transition);font-weight:500}
+.time-slot:hover,.time-slot.selected{background:var(--green-light);border-color:var(--accent);color:var(--green-dark)}
+.booking-submit{width:100%;margin-top:20px}
+
+/* ---- SUBSCRIPTION ---- */
+#subscription{}
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:40px}
+.plan-card{background:#fff;border:1.5px solid var(--gray-100);border-radius:var(--radius-xl);padding:32px;position:relative;transition:box-shadow var(--transition),border-color var(--transition)}
+.plan-card:hover{box-shadow:var(--shadow-lg)}
+.plan-card.featured{border-color:var(--accent);box-shadow:var(--shadow-md)}
+.featured-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 16px;border-radius:20px;white-space:nowrap}
+.plan-name{font-weight:600;font-size:1rem;color:var(--gray-700);margin-bottom:6px}
+.plan-price{font-family:var(--font-display);font-size:2.4rem;color:var(--navy);line-height:1}
+.plan-price span{font-size:1rem;font-family:var(--font-main);color:var(--gray-500);font-weight:400}
+.plan-period{font-size:.8rem;color:var(--gray-500);margin-bottom:24px}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.plan-feat{display:flex;align-items:flex-start;gap:10px;font-size:.85rem;color:var(--gray-700)}
+.plan-feat-icon{color:var(--accent);flex-shrink:0;margin-top:1px;font-weight:700}
+.plan-feat-icon.no{color:var(--gray-300)}
+.plan-btn{width:100%;padding:12px;border-radius:30px;font-size:.9rem;font-weight:500;cursor:pointer;font-family:var(--font-main);transition:all var(--transition)}
+.plan-btn.outline{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.plan-btn.outline:hover{background:var(--green-light)}
+.plan-btn.solid{background:var(--accent);color:#fff;border:none}
+.plan-btn.solid:hover{background:var(--accent-hover)}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:48px}
+.feat-block{background:var(--off-white);border-radius:var(--radius-md);padding:20px;border:1px solid var(--gray-100)}
+.feat-block-icon{font-size:1.3rem;margin-bottom:10px}
+.feat-block-title{font-weight:600;font-size:.88rem;color:var(--navy);margin-bottom:6px}
+.feat-block-items{list-style:none;display:flex;flex-direction:column;gap:5px}
+.feat-block-items li{font-size:.77rem;color:var(--gray-500);display:flex;gap:6px}
+.feat-block-items li::before{content:'·';color:var(--accent);font-weight:900}
+
+/* ---- PROBLEMS ---- */
+#problems{background:var(--off-white)}
+.problems-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}
+.problem-card{background:#fff;border-radius:var(--radius-lg);padding:24px;border:1px solid var(--gray-100)}
+.problem-icon{font-size:1.6rem;margin-bottom:12px}
+.problem-title{font-weight:600;color:var(--navy);margin-bottom:8px}
+.problem-desc{font-size:.85rem;color:var(--gray-500);line-height:1.65}
+
+/* ---- HOW IT WORKS ---- */
+.how-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;position:relative}
+.how-steps::before{content:'';position:absolute;top:36px;left:calc(100%/6);right:calc(100%/6);height:2px;background:linear-gradient(90deg,var(--accent),var(--teal));opacity:.3}
+.step{text-align:center;padding:0 24px}
+.step-num{width:72px;height:72px;border-radius:50%;background:var(--green-light);border:3px solid var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-family:var(--font-display);font-size:1.6rem;color:var(--green-dark)}
+.step-title{font-weight:600;color:var(--navy);margin-bottom:8px}
+.step-desc{font-size:.84rem;color:var(--gray-500);line-height:1.6}
+
+/* ---- OT DIFFERENCE ---- */
+#ot-matters{background:var(--navy);color:#fff}
+#ot-matters .section-title{color:#fff}
+#ot-matters .section-sub{color:rgba(255,255,255,.6)}
+#ot-matters .section-badge{background:rgba(255,255,255,.1);color:#fff}
+.ot-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.ot-text p{font-size:.95rem;color:rgba(255,255,255,.7);line-height:1.75;margin-bottom:18px}
+.ot-expertise{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+.ot-exp-item{background:rgba(255,255,255,.07);border-radius:var(--radius-md);padding:18px;border:1px solid rgba(255,255,255,.1)}
+.ot-exp-icon{font-size:1.2rem;margin-bottom:8px}
+.ot-exp-title{font-weight:600;font-size:.85rem;margin-bottom:4px}
+.ot-exp-desc{font-size:.77rem;color:rgba(255,255,255,.5);line-height:1.5}
+.compare-table{width:100%}
+.compare-row{display:flex;gap:16px;margin-bottom:10px;font-size:.84rem}
+.compare-label{flex:1.5;color:rgba(255,255,255,.7);align-self:center}
+.compare-yes{flex:1;background:rgba(45,145,88,.2);border:1px solid rgba(45,145,88,.3);border-radius:6px;padding:7px 12px;color:#7dd4a8;font-weight:500;font-size:.78rem;text-align:center}
+.compare-no{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 12px;color:rgba(255,255,255,.3);font-size:.78rem;text-align:center}
+.compare-header{display:flex;gap:16px;margin-bottom:14px;font-size:.72rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.compare-header .compare-label{flex:1.5}
+.compare-header .ch{flex:1;text-align:center}
+
+/* ---- CORPORATE ---- */
+#corporate{background:var(--gray-50)}
+.corp-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center}
+.corp-text p{font-size:.95rem;color:var(--gray-500);line-height:1.75;margin:14px 0 24px}
+.corp-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+.corp-feat{display:flex;gap:10px;font-size:.84rem;color:var(--gray-700)}
+.corp-feat::before{content:'✓';color:var(--accent);font-weight:700}
+.corp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.corp-stat{text-align:center;background:#fff;border-radius:var(--radius-md);padding:20px;border:1px solid var(--gray-100)}
+.corp-stat strong{display:block;font-family:var(--font-display);font-size:1.5rem;color:var(--green-dark)}
+.corp-stat span{font-size:.75rem;color:var(--gray-500);line-height:1.4;display:block;margin-top:4px}
+
+/* ---- CONTACT ---- */
+#contact{}
+.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:60px;align-items:start}
+.contact-info p{font-size:.95rem;color:var(--gray-500);line-height:1.75;margin-bottom:28px}
+.contact-ways{display:flex;flex-direction:column;gap:16px}
+.contact-way{display:flex;align-items:flex-start;gap:14px}
+.contact-way-icon{width:42px;height:42px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.contact-way-label{font-weight:600;font-size:.88rem;color:var(--navy);margin-bottom:2px}
+.contact-way-val{font-size:.83rem;color:var(--green)}
+.contact-form{background:var(--off-white);border-radius:var(--radius-xl);padding:36px;border:1px solid var(--gray-100)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-row.full{grid-column:1/-1}
+textarea.form-input{resize:vertical;min-height:120px}
+.form-submit{width:100%;margin-top:8px}
+.form-success{display:none;background:var(--green-light);border:1px solid rgba(45,145,88,.3);border-radius:var(--radius-md);padding:16px;text-align:center;font-size:.88rem;color:var(--green-dark);margin-top:12px}
+
+/* ---- FOOTER ---- */
+footer{background:var(--navy);color:#fff;padding:60px 5% 30px}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.footer-brand{font-family:var(--font-display);font-size:1.5rem;color:#fff;margin-bottom:12px}
+.footer-tagline{font-size:.84rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:20px}
+.footer-links-title{font-size:.78rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:8px}
+.footer-links a{font-size:.84rem;color:rgba(255,255,255,.55);transition:color var(--transition)}
+.footer-links a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-disclaimer{font-size:.75rem;color:rgba(255,255,255,.35);line-height:1.5;max-width:680px}
+.footer-copy{font-size:.78rem;color:rgba(255,255,255,.3)}
+
+/* ---- FLOATING CHATBOT ---- */
+.chat-fab{position:fixed;bottom:28px;right:28px;width:56px;height:56px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 20px rgba(26,107,60,.35);z-index:999;transition:transform var(--transition),background var(--transition)}
+.chat-fab:hover{transform:scale(1.08);background:var(--accent-hover)}
+.chat-popup{position:fixed;bottom:96px;right:28px;width:340px;max-height:500px;background:#fff;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);z-index:999;border:1px solid var(--gray-100);display:flex;flex-direction:column;transform:scale(.9) translateY(20px);opacity:0;pointer-events:none;transition:all var(--transition);transform-origin:bottom right}
+.chat-popup.open{transform:scale(1) translateY(0);opacity:1;pointer-events:auto}
+.popup-header{background:var(--green-dark);color:#fff;padding:14px 18px;border-radius:var(--radius-xl) var(--radius-xl) 0 0;display:flex;align-items:center;gap:10px}
+.popup-header-info{flex:1}
+.popup-header-title{font-weight:600;font-size:.9rem}
+.popup-header-sub{font-size:.7rem;opacity:.65}
+.popup-close{background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:1.1rem;line-height:1}
+.popup-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;max-height:300px}
+.popup-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--gray-100)}
+.popup-input input{flex:1;border:1px solid var(--gray-100);border-radius:20px;padding:8px 14px;font-size:.83rem;font-family:var(--font-main);outline:none}
+.popup-input input:focus{border-color:var(--accent)}
+.popup-input button{background:var(--accent);color:#fff;border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.typing-indicator{display:flex;gap:4px;align-items:center;padding:8px 0}
+.typing-dot{width:6px;height:6px;border-radius:50%;background:var(--gray-300);animation:typing 1.2s infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+
+/* ---- SCROLLBAR ---- */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--gray-50)}
+::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:4px}
+
+/* ---- ANIMATIONS ---- */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:none}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:900px){
+  .hero-inner,.about-grid,.chatbot-layout,.assessment-grid,.consult-grid,.corp-grid,.contact-grid,.ot-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .hero-card{display:none}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .form-grid{grid-template-columns:1fr}
+  .how-steps::before{display:none}
+}
+@media(max-width:600px){
+  .footer-top{grid-template-columns:1fr}
+  .hero h1{font-size:2rem}
+  .about-values{grid-template-columns:1fr}
+  .ot-expertise{grid-template-columns:1fr}
+  .prem-after{grid-template-columns:1fr 1fr}
+  .plans-grid{grid-template-columns:1fr}
+  section{padding:60px 5%}
+  .chat-popup{width:calc(100vw - 32px);right:16px;bottom:80px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">⚕️ ErgoOT <span>Orthopaedic Ergonomist</span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#assessment">Assessment</a>
+      <a href="#chatbot-section">AI Assistant</a>
+      <a href="#consultation">Experts</a>
+      <a href="#subscription">Plans</a>
+      <a href="#corporate">For Companies</a>
+      <a <a href="admin-login.html">Admin</a>
+      <a href="#assessment" class="cta-btn">Free Assessment →</a>
+    </div>
+    <div class="hamburger" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="toggleMobile()">About</a>
+  <a href="#assessment" onclick="toggleMobile()">Assessment</a>
+  <a href="#chatbot-section" onclick="toggleMobile()">AI Assistant</a>
+  <a href="#consultation" onclick="toggleMobile()">Experts</a>
+  <a href="#subscription" onclick="toggleMobile()">Plans</a>
+  <a href="#corporate" onclick="toggleMobile()">For Companies</a>
+  <a href="#contact" onclick="toggleMobile()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="fade-up">
+      <div class="hero-badge">⚕️ Occupational Therapy-Powered Ergonomic Platform</div>
+      <h1>Your Complete Ergonomic Health &amp; <em>Workplace Wellness</em> Solution</h1>
+      <p>From posture assessment and workstation optimisation to musculoskeletal health, fatigue management, and long-term well-being — ErgoOT delivers affordable, evidence-based ergonomic guidance for work, study, and everyday life.</p>
+      <div class="hero-btns">
+        <a href="#assessment" class="btn-primary">Take Free Assessment →</a>
+        <a href="#about" class="btn-secondary">Meet Our Founder</a>
+      </div>
+    </div>
+    <div class="hero-card fade-up" style="animation-delay:.2s">
+      <div class="hero-card-header">
+        <div class="hero-card-icon">📊</div>
+        <div>
+          <div class="hero-card-title">Your Ergonomic Wellness Profile</div>
+          <div class="hero-card-sub">Complete the free assessment to see your personalised score</div>
+        </div>
+      </div>
+      <div class="risk-bar-wrap">
+        <div class="risk-label"><span>Posture &amp; Spinal Health</span><span>Low Risk</span></div>
+        <div class="risk-bar"><div class="risk-fill low" style="width:28%"></div></div>
+      </div>
+      <div class="risk-bar-wrap">
+        <div class="risk-label"><span>Workstation Ergonomics</span><span>Moderate Risk</span></div>
+        <div class="risk-bar"><div class="risk-fill med" style="width:55%"></div></div>
+      </div>
+      <div class="risk-bar-wrap">
+        <div class="risk-label"><span>Fatigue &amp; Energy Levels</span><span>Low Risk</span></div>
+        <div class="risk-bar"><div class="risk-fill low" style="width:35%"></div></div>
+      </div>
+      <div class="risk-bar-wrap">
+        <div class="risk-label"><span>Visual &amp; Eye Comfort</span><span>High Risk</span></div>
+        <div class="risk-bar"><div class="risk-fill high" style="width:72%"></div></div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-chip"><strong>80%</strong><span>Desk workers report pain</span></div>
+        <div class="stat-chip"><strong>5 min</strong><span>Free self-assessment</span></div>
+        <div class="stat-chip"><strong>₹499</strong><span>Affordable premium access</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT US -->
+<section id="about">
+  <div class="section-inner about-grid">
+    <div class="fade-up">
+      <div class="section-badge">🌱 About ErgoOT</div>
+      <h2 class="section-title">Our Mission: Making Ergonomic Health Affordable &amp; Accessible for Everyone</h2>
+      <p style="color:var(--gray-500);line-height:1.75;margin:14px 0 10px">ErgoOT was founded by a qualified Orthopaedic Ergonomist and Occupational Therapist with deep expertise in musculoskeletal health, injury prevention, and workplace ergonomics. Having assessed hundreds of individuals across corporate, clinical, and educational settings, our founder recognised a critical gap — people suffering from entirely preventable ergonomic conditions because credible, personalised guidance was either unavailable or unaffordable.</p>
+      <p style="color:var(--gray-500);line-height:1.75;margin-bottom:24px">ErgoOT bridges that gap by combining <strong>Occupational Therapy principles</strong>, <strong>orthopaedic ergonomics expertise</strong>, and accessible digital technology. Our platform serves professionals, students, and organisations seeking to prevent injury, improve posture, optimise workstations, and build sustainable long-term well-being — at a fraction of the cost of traditional consultations.</p>
+      <div class="about-values">
+        <div class="value-card">
+          <div class="value-icon">🔬</div>
+          <div class="value-title">Evidence-Based Practice</div>
+          <div class="value-desc">Every recommendation is grounded in peer-reviewed research, clinical orthopaedic ergonomics, and Occupational Therapy practice guidelines.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🤝</div>
+          <div class="value-title">Expert Professional Guidance</div>
+          <div class="value-desc">Access to qualified Occupational Therapists, orthopaedic ergonomists, and wellness specialists — online and on demand.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🎯</div>
+          <div class="value-title">Personalised &amp; Prevention-Focused</div>
+          <div class="value-desc">Your risk profile, work environment, and health history inform every recommendation. We prevent problems before they become chronic.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">💰</div>
+          <div class="value-title">Affordable &amp; Accessible</div>
+          <div class="value-desc">Clinical-grade ergonomic support at an accessible price point — making expert guidance available to individuals and organisations of all sizes.</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-img-wrap fade-up">
+      <div class="founder-card">
+        <div class="founder-avatar">🩺</div>
+        <div class="founder-name">Dr.Sneha Sinha(OT) — Founder, ErgoOT</div>
+        <div class="founder-title">Certified Ergonomist &amp; Occupational Therapist</div>
+        <div style="font-size:.81rem;color:var(--gray-500);line-height:1.65;margin-bottom:14px">A specialist in musculoskeletal health and injury prevention, Sneha brings clinical Occupational Therapy expertise together with orthopaedic ergonomics to help individuals and organisations address the root causes of work-related discomfort. With experience across corporate wellness, clinical rehabilitation, and educational ergonomics, she has supported hundreds of clients in transforming their work environments and movement habits. Her approach is evidence-based, practical, and deeply committed to making expert ergonomic guidance affordable and accessible — not a luxury reserved for large organisations.</div>
+        <div class="founder-tags">
+          <span class="tag">🎓 Qualified Occupational Therapist(BOT , MOT- Orthopaedics)</span>
+          <span class="tag">🦴 Certified Ergonomist</span>
+          <span class="tag">🛡️ Injury Prevention Specialist</span>
+          <span class="tag">💼 Workplace Ergonomics</span>
+          <span class="tag">📐 Posture &amp; MSK Assessment</span>
+          <span class="tag">🌏 Corporate &amp; Education Sectors</span>
+        </div>
+      </div>
+      <div class="mission-strip">
+        <strong style="display:block;margin-bottom:8px;font-size:.9rem">Our Mission</strong>
+        "Ergonomic suffering is largely preventable — yet most people never receive the guidance they need until pain has already become chronic. I founded ErgoOT to change that: to deliver clinical-grade, orthopaedic ergonomics expertise in an affordable, accessible format that empowers every individual to work, study, and live without unnecessary physical strain."
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMS -->
+<section id="problems">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-badge">⚠️ The Ergonomic Challenge</div>
+      <h2 class="section-title">Unaddressed Ergonomic Risk Affects Every Aspect of Your Life</h2>
+      <p class="section-sub">Poor ergonomics is not just a physical problem — it affects productivity, mental health, and long-term functional capacity across work, study, and daily activities.</p>
+    </div>
+    <div class="problems-grid">
+      <div class="problem-card fade-up"><div class="problem-icon">🦴</div><div class="problem-title">Musculoskeletal Discomfort</div><div class="problem-desc">Neck pain, shoulder tension, lower back strain, and upper limb discomfort are among the most common — and most preventable — consequences of poor ergonomic habits and workstation design.</div></div>
+      <div class="problem-card fade-up"><div class="problem-icon">🪑</div><div class="problem-title">Poor Posture &amp; Spinal Load</div><div class="problem-desc">Prolonged sitting in unsupported or awkward postures places excessive compressive load on spinal discs and surrounding musculature, contributing to progressive degeneration over time.</div></div>
+      <div class="problem-card fade-up"><div class="problem-icon">👁️</div><div class="problem-title">Visual Fatigue &amp; Eye Strain</div><div class="problem-desc">Extended screen use without appropriate visual ergonomics leads to digital eye strain, dry eyes, blurred vision, and headaches — impairing both comfort and performance.</div></div>
+      <div class="problem-card fade-up"><div class="problem-icon">😰</div><div class="problem-title">Fatigue &amp; Reduced Productivity</div><div class="problem-desc">Physical discomfort and poor environmental design deplete energy, impair cognitive function, and reduce overall work output — creating a cycle of declining performance and well-being.</div></div>
+      <div class="problem-card fade-up"><div class="problem-icon">😟</div><div class="problem-title">Stress, Anxiety &amp; Burnout</div><div class="problem-desc">Chronic physical discomfort combined with excessive workload and poor recovery contributes to cumulative stress, anxiety, and burnout — conditions that are frequently overlooked until they become severe.</div></div>
+      <div class="problem-card fade-up"><div class="problem-icon">⏰</div><div class="problem-title">Sustained Static Postures</div><div class="problem-desc">Remaining in prolonged static positions — whether sitting, standing, or screen-focused — restricts circulation, increases muscular fatigue, and accelerates the development of repetitive strain injuries.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-badge">⚙️ The Process</div>
+      <h2 class="section-title">How ErgoOT Works</h2>
+      <p class="section-sub">A clear, structured pathway from initial self-assessment to personalised ergonomic wellness — guided by Occupational Therapy principles at every step.</p>
+    </div>
+    <div class="how-steps">
+      <div class="step fade-up">
+        <div class="step-num">1</div>
+        <div class="step-title">Free Self-Assessment</div>
+        <div class="step-desc">Complete a brief ergonomic screening covering posture, workstation setup, discomfort, eye strain, and movement habits.</div>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">2</div>
+        <div class="step-title">Receive Your Risk Profile</div>
+        <div class="step-desc">Get a personalised ergonomic risk score with clear explanations across key health and wellness categories.</div>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">3</div>
+        <div class="step-title">Evidence-Based Recommendations</div>
+        <div class="step-desc">Receive Occupational Therapy-informed, evidence-based recommendations tailored to your specific risk profile and work context.</div>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">4</div>
+        <div class="step-title">Connect with an Expert</div>
+        <div class="step-desc">Book a consultation with a qualified Occupational Therapist, orthopaedic ergonomist, or wellness specialist for in-depth personalised guidance.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHATBOT SECTION -->
+<section id="chatbot-section">
+  <div class="section-inner chatbot-layout">
+    <div class="chatbot-info fade-up">
+      <div class="section-badge">🤖 AI Assistant</div>
+      <h2 class="section-title">ErgoOT AI Wellness Guide</h2>
+      <p>Your OT-powered assistant for ergonomics, workplace health, and wellness. Ask about posture, pain management, fatigue, stress, anxiety, workstation setup, and more.</p>
+      <p>Our AI provides educational guidance based on OT principles. For personalized treatment, it will connect you with a qualified professional.</p>
+      <div style="font-weight:600;font-size:.88rem;color:var(--navy);margin-bottom:10px">Topics I can help with:</div>
+      <div class="topic-pills">
+        <span class="topic-pill" onclick="sendToChatbox(this)">🦴 Ergonomics</span>
+        <span class="topic-pill" onclick="sendToChatbox(this)">😣 Pain Management</span>
+        <span class="topic-pill" onclick="sendToChatbox(this)">😴 Fatigue</span>
+        <span class="topic-pill" onclick="sendToChatbox(this)">😟 Stress &amp; Anxiety</span>
+        <span class="topic-pill" onclick="sendToChatbox(this)">🪑 Posture</span>
+        <span class="topic-pill" onclick="sendToChatbox(this)">🖥️ Workstation Setup</span>
+        <span class="topic-pill" onclick="sendToChatbox(this)">⚖️ Work-Life Balance</span>
+        <span class="topic-pill" onclick="sendToChatbox(this)">🧠 Mental Wellness</span>
+        <span class="topic-pill" onclick="sendToChatbox(this)">💪 Exercise &amp; Stretching</span>
+        <span class="topic-pill" onclick="sendToChatbox(this)">😔 Depression Screening</span>
+      </div>
+      <div style="margin-top:28px;padding:16px;background:var(--green-light);border-radius:var(--radius-md);border:1px solid rgba(45,145,88,.2)">
+        <div style="font-size:.82rem;color:var(--green-dark);line-height:1.65"><strong>⚕️ Disclaimer:</strong> The AI provides ergonomic guidance and educational information only — not medical diagnosis or treatment. Always consult a qualified healthcare professional for significant pain or injury.</div>
+      </div>
+    </div>
+    <div class="chatbox fade-up">
+      <div class="chatbox-header">
+        <div class="chatbox-avatar">⚕️</div>
+        <div>
+          <div class="chatbox-title">ErgoOT AI Assistant</div>
+          <div class="chatbox-sub">OT-powered ergonomic wellness guide</div>
+        </div>
+        <div class="chat-status"></div>
+      </div>
+      <div class="chatbox-messages" id="chatboxMessages">
+        <div class="msg msg-bot">
+          <div class="msg-label">ErgoOT AI</div>
+          <div class="msg-bubble">Hello! I'm your ErgoOT AI assistant. I can help with ergonomics, workplace health, pain management, fatigue, stress, anxiety, posture, workstation setup, and overall wellness. What can I help you with today?</div>
+        </div>
+        <div class="msg msg-bot">
+          <div class="expert-cta-msg">
+            💼 <strong>Connect with a Professional Expert</strong><br>
+            For personalized treatment plans, detailed assessments, or if you're experiencing significant pain — our qualified OT professionals are here to help.
+            <br><button class="expert-cta-btn" onclick="scrollToSection('consultation')">Book Your First Consultation →</button>
+          </div>
+        </div>
+      </div>
+      <div class="chatbox-input">
+        <input type="text" id="chatboxInput" placeholder="Ask about ergonomics, pain, stress, posture..." onkeydown="if(event.key==='Enter')sendChatMessage()" />
+        <button onclick="sendChatMessage()">➤</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE ASSESSMENT -->
+<section id="assessment">
+  <div class="section-inner assessment-grid">
+    <div class="assess-intro fade-up">
+      <div class="section-badge">📋 Free Quick Assessment</div>
+      <h2 class="section-title">Check Your Ergonomic Risk in 2–3 Minutes</h2>
+      <p>A clinically-informed screening covering the key risk areas for desk workers. Get your personal risk score and immediate recommendations — at no cost.</p>
+      <div class="assess-features">
+        <div class="assess-feat">Musculoskeletal discomfort screening</div>
+        <div class="assess-feat">Workstation ergonomics evaluation</div>
+        <div class="assess-feat">Fatigue and energy levels</div>
+        <div class="assess-feat">Stress and mental wellbeing</div>
+        <div class="assess-feat">Instant risk score + basic recommendations</div>
+        <div class="assess-feat">No sign-up required</div>
+      </div>
+      <div style="margin-top:28px;padding:16px;background:var(--off-white);border-radius:var(--radius-md);border:1px solid var(--gray-100)">
+        <div style="font-weight:600;font-size:.88rem;color:var(--navy);margin-bottom:8px">🌟 Want a detailed assessment?</div>
+        <div style="font-size:.82rem;color:var(--gray-500);line-height:1.6;margin-bottom:10px">Our Premium Assessment Suite includes 6 validated professional assessments covering ergonomic risk, pain, fatigue, stress, anxiety, and depression.</div>
+        <a href="#premium-assessment" class="btn-secondary" style="font-size:.82rem;padding:8px 18px">Explore Premium Assessments →</a>
+      </div>
+    </div>
+    <div class="assessment-card fade-up" id="assessmentCard">
+      <div class="assess-progress"><div class="assess-progress-fill" id="assessProgress" style="width:12%"></div></div>
+      <div id="assessQuestions">
+        <div class="assess-header">
+          <div class="assess-step-label" id="assessStepLabel">Question 1 of 8</div>
+          <div class="assess-q" id="assessQuestion">Do you experience any pain or discomfort in your neck, shoulders, or upper back during or after work?</div>
+        </div>
+        <div class="assess-body">
+          <div class="assess-options" id="assessOptions"></div>
+        </div>
+        <div class="assess-footer">
+          <button class="assess-nav-btn outline" id="assessPrev" onclick="assessPrev()" style="visibility:hidden">← Back</button>
+          <button class="assess-nav-btn" id="assessNext" onclick="assessNext()">Next →</button>
+        </div>
+      </div>
+      <div class="assess-result" id="assessResult">
+        <div class="result-score" id="resultScore">
+          <div class="result-score-num" id="resultScoreNum"></div>
+          <div class="result-score-label" id="resultScoreLabel"></div>
+        </div>
+        <div class="result-title" id="resultTitle"></div>
+        <div class="result-desc" id="resultDesc"></div>
+        <div class="result-recs" id="resultRecs"></div>
+        <button class="btn-primary" style="margin:0 auto 12px;display:flex" onclick="scrollToSection('consultation')">Book a Consultation →</button>
+        <button class="assess-nav-btn outline" onclick="resetAssessment()">Retake Assessment</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREMIUM ASSESSMENT -->
+<section id="premium-assessment">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-badge">⭐ Premium Assessment Suite</div>
+      <div style="display:inline-block;margin-bottom:10px"><span class="prem-badge">🔒 Premium</span></div>
+      <h2 class="section-title">Validated Professional Assessment Suite</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,.6)">Six clinically-validated assessments covering every dimension of your workplace health. Delivered with detailed reports, risk categorization, and a personalized action plan.</p>
+    </div>
+    <div class="prem-assess-grid">
+      <div class="prem-assess-card fade-up">
+        <div class="prem-assess-icon">🦴</div>
+        <div class="prem-assess-title">Ergonomic Risk Assessment</div>
+        <ul class="prem-assess-items">
+          <li>Posture risk analysis</li>
+          <li>Workstation setup evaluation</li>
+          <li>Repetitive strain risk</li>
+          <li>Work habits assessment</li>
+        </ul>
+      </div>
+      <div class="prem-assess-card fade-up">
+        <div class="prem-assess-icon">🤕</div>
+        <div class="prem-assess-title">Pain Assessment</div>
+        <ul class="prem-assess-items">
+          <li>Pain intensity scoring</li>
+          <li>Pain frequency patterns</li>
+          <li>Functional limitations</li>
+          <li>Impact on work performance</li>
+        </ul>
+      </div>
+      <div class="prem-assess-card fade-up">
+        <div class="prem-assess-icon">😴</div>
+        <div class="prem-assess-title">Fatigue Assessment</div>
+        <ul class="prem-assess-items">
+          <li>Physical fatigue levels</li>
+          <li>Mental fatigue screening</li>
+          <li>Work-related exhaustion</li>
+          <li>Recovery assessment</li>
+        </ul>
+      </div>
+      <div class="prem-assess-card fade-up">
+        <div class="prem-assess-icon">😰</div>
+        <div class="prem-assess-title">Stress Management</div>
+        <ul class="prem-assess-items">
+          <li>Stress trigger identification</li>
+          <li>Coping mechanisms analysis</li>
+          <li>Burnout indicators</li>
+          <li>Work-life balance score</li>
+        </ul>
+      </div>
+      <div class="prem-assess-card fade-up">
+        <div class="prem-assess-icon">😟</div>
+        <div class="prem-assess-title">Anxiety Assessment</div>
+        <ul class="prem-assess-items">
+          <li>Validated anxiety screening</li>
+          <li>Severity scoring (GAD-7 based)</li>
+          <li>Workplace anxiety factors</li>
+          <li>Professional referral guidance</li>
+        </ul>
+      </div>
+      <div class="prem-assess-card fade-up">
+        <div class="prem-assess-icon">🧠</div>
+        <div class="prem-assess-title">Depression Assessment</div>
+        <ul class="prem-assess-items">
+          <li>Mood screening (PHQ-9 based)</li>
+          <li>Depression indicators</li>
+          <li>Functional impact analysis</li>
+          <li>Professional referral recommendations</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prem-after fade-up">
+      <div class="prem-after-item">
+        <div class="prem-after-item-icon">📄</div>
+        <div class="prem-after-item-title">Detailed Report</div>
+        <div class="prem-after-item-desc">Comprehensive report across all six assessment areas with clinical interpretation</div>
+      </div>
+      <div class="prem-after-item">
+        <div class="prem-after-item-icon">🎯</div>
+        <div class="prem-after-item-title">Risk Categorization</div>
+        <div class="prem-after-item-desc">Clear low / medium / high risk categorization with priority recommendations</div>
+      </div>
+      <div class="prem-after-item">
+        <div class="prem-after-item-icon">📋</div>
+        <div class="prem-after-item-title">Personalized Action Plan</div>
+        <div class="prem-after-item-desc">Step-by-step OT-guided plan tailored to your specific risk profile and goals</div>
+      </div>
+      <div class="prem-after-item">
+        <div class="prem-after-item-icon">📈</div>
+        <div class="prem-after-item-title">Progress Tracking</div>
+        <div class="prem-after-item-desc">Monitor improvements over time with repeat assessments and trend analysis</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="#subscription" class="btn-primary" style="display:inline-flex">Unlock Premium Assessments →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONSULTATION -->
+<section id="consultation">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-badge">👩‍⚕️ Expert Consultation</div>
+      <h2 class="section-title">Book Your First Consultation</h2>
+      <p class="section-sub">Connect with qualified professionals for personalized, one-on-one guidance tailored to your health goals and work challenges.</p>
+    </div>
+    <div class="consult-grid">
+      <div>
+        <div style="font-weight:600;font-size:.9rem;color:var(--navy);margin-bottom:16px">Our Expert Team</div>
+        <div class="expert-cards">
+          <div class="expert-card fade-up">
+            <div class="expert-avatar">🦴</div>
+            <div>
+              <div class="expert-name">Occupational Therapist</div>
+              <div class="expert-role">Workplace Ergonomics &amp; MSK Health</div>
+              <div class="expert-bio">Specializes in musculoskeletal rehabilitation, posture correction, and workstation optimization for desk-based professionals.</div>
+              <div class="expert-avail">🟢 Available this week</div>
+            </div>
+          </div>
+          <div class="expert-card fade-up">
+            <div class="expert-avatar">🖥️</div>
+            <div>
+              <div class="expert-name">Ergonomics Specialist</div>
+              <div class="expert-role">Workstation &amp; Environmental Assessment</div>
+              <div class="expert-bio">Expert in workstation design, equipment recommendations, and office environment optimization to prevent injury.</div>
+              <div class="expert-avail">🟢 Available this week</div>
+            </div>
+          </div>
+          <div class="expert-card fade-up">
+            <div class="expert-avatar">💆</div>
+            <div>
+              <div class="expert-name">Workplace Wellness Expert</div>
+              <div class="expert-role">Wellness Programs &amp; Prevention</div>
+              <div class="expert-bio">Focuses on building sustainable healthy work habits, energy management, and holistic workplace wellness strategies.</div>
+              <div class="expert-avail">🟡 2–3 day wait</div>
+            </div>
+          </div>
+          <div class="expert-card fade-up">
+            <div class="expert-avatar">🧠</div>
+            <div>
+              <div class="expert-name">Mental Health Professional</div>
+              <div class="expert-role">Stress, Anxiety &amp; Burnout Support</div>
+              <div class="expert-bio">Provides evidence-based support for workplace stress, anxiety, depression, and burnout — tailored to the IT professional's experience.</div>
+              <div class="expert-avail">🟢 Available this week</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="booking-card fade-up">
+        <div class="booking-header">
+          <div class="booking-title">📅 Book Your First Consultation</div>
+          <div class="booking-sub">Free 30-minute introductory session with a qualified expert</div>
+        </div>
+        <div class="booking-body">
+          <div class="form-row">
+            <label class="form-label">Select Expert Type</label>
+            <select class="form-input" id="expertType">
+              <option value="">Choose an expert...</option>
+              <option>Occupational Therapist</option>
+              <option>Ergonomics Specialist</option>
+              <option>Workplace Wellness Expert</option>
+              <option>Mental Health Professional</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Select a Date — June 2025</label>
+            <div class="calendar-mini" id="bookingCal"></div>
+          </div>
+          <div class="form-row" id="timeSlotRow" style="display:none">
+            <label class="form-label">Available Times</label>
+            <div class="time-slots">
+              <div class="time-slot" onclick="selectTime(this)">9:00 AM</div>
+              <div class="time-slot" onclick="selectTime(this)">10:30 AM</div>
+              <div class="time-slot" onclick="selectTime(this)">12:00 PM</div>
+              <div class="time-slot" onclick="selectTime(this)">2:00 PM</div>
+              <div class="time-slot" onclick="selectTime(this)">3:30 PM</div>
+              <div class="time-slot" onclick="selectTime(this)">5:00 PM</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-input" placeholder="Your name" />
+          </div>
+          <div class="form-row">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" placeholder="your@email.com" />
+          </div>
+          <div class="form-row">
+            <label class="form-label">Brief description of your concern</label>
+            <textarea class="form-input" rows="2" placeholder="e.g. Neck pain, stress, workstation setup..."></textarea>
+          </div>
+          <button class="btn-primary booking-submit" onclick="bookConsultation()">Confirm Booking →</button>
+          <div id="bookingSuccess" style="display:none;margin-top:12px;background:var(--green-light);border-radius:var(--radius-md);padding:14px;font-size:.85rem;color:var(--green-dark);text-align:center">
+            ✅ Booking confirmed! You'll receive a confirmation email within 30 minutes.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBSCRIPTION PLANS -->
+<section id="subscription">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-badge">💎 Subscription Plans</div>
+      <h2 class="section-title">Choose Your Wellness Journey</h2>
+      <p class="section-sub">Start free and upgrade when you're ready for personalized treatment, expert consultations, and comprehensive support.</p>
+    </div>
+    <div class="plans-grid">
+      <div class="plan-card fade-up">
+        <div class="plan-name">Free Plan</div>
+        <div class="plan-price">₹0 <span>/ forever</span></div>
+        <div class="plan-period">Great for getting started</div>
+        <ul class="plan-features">
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>AI chatbot access (ergonomics &amp; wellness)</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>About Us &amp; educational resources</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Free quick assessment (2–3 min)</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Basic recommendations</li>
+          <li class="plan-feat"><span class="plan-feat-icon no">✗</span><span style="color:var(--gray-400)">Premium assessments</span></li>
+          <li class="plan-feat"><span class="plan-feat-icon no">✗</span><span style="color:var(--gray-400)">Expert consultations</span></li>
+          <li class="plan-feat"><span class="plan-feat-icon no">✗</span><span style="color:var(--gray-400)">Personalized treatment plans</span></li>
+        </ul>
+        <button class="plan-btn outline" onclick="scrollToSection('assessment')">Start Free →</button>
+      </div>
+      <div class="plan-card featured fade-up">
+        <div class="featured-badge">⭐ Most Popular</div>
+        <div class="plan-name">Premium Monthly</div>
+        <div class="plan-price">₹499<span>/ month</span></div>
+        <div class="plan-period">Full access, cancel anytime</div>
+        <ul class="plan-features">
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>All 6 standardized assessments</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Personalized treatment plans</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Expert consultation booking</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Smart reminders (stretch, hydration, breaks)</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Exercise &amp; stretching program</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Workstation modification guidance</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Diet &amp; nutrition support</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Mental fatigue management</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Counseling &amp; coaching resources</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Progress analytics</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Priority support</li>
+        </ul>
+        <button class="plan-btn solid" onclick="showPremiumModal()">Get Premium →</button>
+      </div>
+      <div class="plan-card fade-up">
+        <div class="plan-name">Premium Annual</div>
+        <div class="plan-price">₹3,999 <span>/ year</span></div>
+        <div class="plan-period">Save ₹1,989 vs monthly</div>
+        <ul class="plan-features">
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Everything in Premium Monthly</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>2 free expert consultations included</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Annual comprehensive health review</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Priority booking with specialists</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Corporate-grade reporting</li>
+          <li class="plan-feat"><span class="plan-feat-icon">✓</span>Dedicated wellness coach access</li>
+        </ul>
+        <button class="plan-btn outline" onclick="showPremiumModal()">Get Annual Plan →</button>
+      </div>
+    </div>
+    <div style="margin-top:60px">
+      <div style="text-align:center;margin-bottom:32px">
+        <div class="section-badge" style="display:inline-flex">🌟 Premium Features</div>
+        <h3 style="font-family:var(--font-display);font-size:1.6rem;color:var(--navy);margin-top:10px">Everything Included in Premium</h3>
+      </div>
+      <div class="features-grid">
+        <div class="feat-block fade-up"><div class="feat-block-icon">🏥</div><div class="feat-block-title">Personalized Treatment Program</div><ul class="feat-block-items"><li>Individualized recovery plans</li><li>Goal tracking dashboard</li><li>Progress monitoring &amp; reports</li></ul></div>
+        <div class="feat-block fade-up"><div class="feat-block-icon">⏰</div><div class="feat-block-title">Smart Reminders</div><ul class="feat-block-items"><li>Stretch &amp; exercise reminders</li><li>Hydration &amp; break alerts</li><li>Posture correction nudges</li></ul></div>
+        <div class="feat-block fade-up"><div class="feat-block-icon">🖥️</div><div class="feat-block-title">Workstation Modification</div><ul class="feat-block-items"><li>Desk &amp; chair setup guidance</li><li>Monitor positioning tips</li><li>Keyboard &amp; mouse recommendations</li></ul></div>
+        <div class="feat-block fade-up"><div class="feat-block-icon">💪</div><div class="feat-block-title">Exercise &amp; Stretching</div><ul class="feat-block-items"><li>Personalized exercise plans</li><li>Mobility &amp; flexibility routines</li><li>Strengthening programs</li></ul></div>
+        <div class="feat-block fade-up"><div class="feat-block-icon">🥗</div><div class="feat-block-title">Diet &amp; Nutrition Support</div><ul class="feat-block-items"><li>Energy management nutrition tips</li><li>Healthy workplace eating plans</li><li>Hydration recommendations</li></ul></div>
+        <div class="feat-block fade-up"><div class="feat-block-icon">🧠</div><div class="feat-block-title">Mental Fatigue Management</div><ul class="feat-block-items"><li>Cognitive recovery strategies</li><li>Focus enhancement techniques</li><li>Mindfulness recommendations</li></ul></div>
+        <div class="feat-block fade-up"><div class="feat-block-icon">💬</div><div class="feat-block-title">Counseling &amp; Coaching</div><ul class="feat-block-items"><li>Stress management coaching</li><li>Anxiety &amp; burnout support</li><li>Work-life balance coaching</li></ul></div>
+        <div class="feat-block fade-up"><div class="feat-block-icon">⚡</div><div class="feat-block-title">Energy Conservation</div><ul class="feat-block-items"><li>Activity pacing techniques</li><li>Task prioritization strategies</li><li>Work simplification methods</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OT DIFFERENCE -->
+<section id="ot-matters">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-badge">🏥 The OT Difference</div>
+      <h2 class="section-title">Why OT Professionals Understand Workplace Pain Better</h2>
+      <p class="section-sub">Occupational Therapy is not just rehabilitation — it's about helping people function better in everyday life, including how they work.</p>
+    </div>
+    <div class="ot-grid">
+      <div class="ot-text fade-up">
+        <p>OT professionals are trained to look beyond symptoms. They assess how a person moves, sits, reaches, and interacts with their environment — and identify what changes can make that interaction healthier and more sustainable.</p>
+        <div class="ot-expertise">
+          <div class="ot-exp-item"><div class="ot-exp-icon">🦴</div><div class="ot-exp-title">Human Movement &amp; Body Mechanics</div><div class="ot-exp-desc">Understanding how the body moves during work tasks to identify strain and injury risk</div></div>
+          <div class="ot-exp-item"><div class="ot-exp-icon">🪑</div><div class="ot-exp-title">Posture &amp; MSK Strain</div><div class="ot-exp-desc">Recognising how sustained and awkward postures contribute to pain over time</div></div>
+          <div class="ot-exp-item"><div class="ot-exp-icon">🔁</div><div class="ot-exp-title">Repetitive Strain &amp; Overuse</div><div class="ot-exp-desc">Identifying movement patterns that accumulate into chronic conditions</div></div>
+          <div class="ot-exp-item"><div class="ot-exp-icon">🛡️</div><div class="ot-exp-title">Prevention &amp; Activity Modification</div><div class="ot-exp-desc">Changing how and where people work — not just treating what's already gone wrong</div></div>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="compare-header">
+          <div class="compare-label"></div>
+          <div class="ch">ErgoOT</div>
+          <div class="ch">Generic Apps</div>
+        </div>
+        <div class="compare-row"><div class="compare-label">Clinical OT foundation</div><div class="compare-yes">✓ Yes</div><div class="compare-no">✗ No</div></div>
+        <div class="compare-row"><div class="compare-label">Considers full work context</div><div class="compare-yes">✓ Always</div><div class="compare-no">✗ Rarely</div></div>
+        <div class="compare-row"><div class="compare-label">Addresses root causes</div><div class="compare-yes">✓ Yes</div><div class="compare-no">✗ Surface only</div></div>
+        <div class="compare-row"><div class="compare-label">Posture + pain + function together</div><div class="compare-yes">✓ Integrated</div><div class="compare-no">✗ Fragmented</div></div>
+        <div class="compare-row"><div class="compare-label">Personalized risk profile</div><div class="compare-yes">✓ Always</div><div class="compare-no">✗ Generic advice</div></div>
+        <div class="compare-row"><div class="compare-label">Prevention-focused</div><div class="compare-yes">✓ Core focus</div><div class="compare-no">✗ Reactive</div></div>
+        <div class="compare-row"><div class="compare-label">Mental health integration</div><div class="compare-yes">✓ Included</div><div class="compare-no">✗ Absent</div></div>
+        <div class="compare-row"><div class="compare-label">Expert consultation access</div><div class="compare-yes">✓ Built-in</div><div class="compare-no">✗ Not available</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORPORATE -->
+<section id="corporate">
+  <div class="section-inner corp-grid">
+    <div class="corp-text fade-up">
+      <div class="section-badge">🏢 For Companies</div>
+      <h2 class="section-title">Support Employee Wellness at Scale</h2>
+      <p>Ergonomic health issues cost businesses billions annually in absenteeism, reduced productivity, and healthcare claims. ErgoOT brings OT-led ergonomic wellness programs directly to your workforce.</p>
+      <div class="corp-features">
+        <div class="corp-feat">Team-wide ergonomic risk assessments</div>
+        <div class="corp-feat">Aggregate risk reporting for HR</div>
+        <div class="corp-feat">Custom ergonomic training workshops</div>
+        <div class="corp-feat">Individual OT-based recommendation pathways</div>
+        <div class="corp-feat">Remote and hybrid worker support</div>
+        <div class="corp-feat">Ongoing monitoring &amp; program evaluation</div>
+      </div>
+      <a href="#contact" class="btn-primary">Contact Us for Corporate Programs →</a>
+    </div>
+    <div>
+      <div class="corp-stats fade-up">
+        <div class="corp-stat"><strong>$644B</strong><span>Annual cost of MSK disorders to US economy</span></div>
+        <div class="corp-stat"><strong>83%</strong><span>Reduction in discomfort with ergonomic interventions</span></div>
+        <div class="corp-stat"><strong>4.8×</strong><span>ROI on workplace ergonomics investment</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-badge">📬 Get In Touch</div>
+      <h2 class="section-title">Let's Talk Ergonomic Wellness</h2>
+      <p class="section-sub">Whether you're an IT professional seeking help, or an HR leader building a workplace wellness program — we'd love to hear from you.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="fade-up">
+        <div class="contact-ways">
+          <div class="contact-way"><div class="contact-way-icon">📧</div><div><div class="contact-way-label">Email Us</div><div class="contact-way-val">ErgosOT@yahoo.com</div></div></div>
+          <div class="contact-way"><div class="contact-way-icon">💼</div><div><div class="contact-way-label">Corporate Inquiries</div><div class="contact-way-val">ErgosOT@yahoo.com</div></div></div>
+          <div class="contact-way"><div class="contact-way-icon">⏱️</div><div><div class="contact-way-label">Response Time</div><div class="contact-way-val">Within 24–48 business hours</div></div></div>
+        </div>
+      </div>
+      <div class="contact-form fade-up">
+        <div class="form-grid">
+          <div class="form-row"><label class="form-label">Full Name</label><input type="text" class="form-input" placeholder="Your full name" /></div>
+          <div class="form-row"><label class="form-label">Email Address</label><input type="email" class="form-input" placeholder="your@email.com" /></div>
+          <div class="form-row"><label class="form-label">Organisation (optional)</label><input type="text" class="form-input" placeholder="Company name" /></div>
+          <div class="form-row">
+            <label class="form-label">Type of Inquiry</label>
+            <select class="form-input">
+              <option>Personal ergonomic guidance</option>
+              <option>Corporate wellness program</option>
+              <option>Partnership inquiry</option>
+              <option>General question</option>
+            </select>
+          </div>
+          <div class="form-row full"><label class="form-label">Message</label><textarea class="form-input" placeholder="How can we help?" rows="4"></textarea></div>
+        </div>
+        <button class="btn-primary form-submit" onclick="submitContact()">Send Message →</button>
+        <div class="form-success" id="contactSuccess">✅ Thank you for reaching out! We'll get back to you within 24–48 hours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">⚕️ ErgoOT</div>
+        <div class="footer-tagline">OT-powered ergonomic health platform for IT professionals. Evidence-based, personalised, and clinically grounded.</div>
+      </div>
+      <div>
+        <div class="footer-links-title">Platform</div>
+        <ul class="footer-links">
+          <li><a href="#assessment">Free Assessment</a></li>
+          <li><a href="#premium-assessment">Premium Assessments</a></li>
+          <li><a href="#chatbot-section">AI Assistant</a></li>
+          <li><a href="#consultation">Expert Booking</a></li>
+          <li><a href="#subscription">Pricing Plans</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-links-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#about">About ErgoOT</a></li>
+          <li><a href="#corporate">For Companies</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-links-title">Resources</div>
+        <ul class="footer-links">
+          <li><a href="#">Ergonomic Guide</a></li>
+          <li><a href="#">20-20-20 Rule</a></li>
+          <li><a href="#">Posture Tips</a></li>
+          <li><a href="#">OT Explained</a></li>
+          <li><a href="admin-login.html">Admin Login</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-disclaimer">⚕️ <strong>Medical Disclaimer:</strong> This platform provides ergonomic guidance and educational information only. It is not a substitute for professional medical diagnosis, treatment, or advice. If you are experiencing significant pain or injury, please consult a qualified healthcare professional.</div>
+      <div class="footer-copy">© 2025 ErgoOT. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING CHAT FAB -->
+<button class="chat-fab" onclick="togglePopupChat()" title="Chat with ErgoOT AI">💬</button>
+<div class="chat-popup" id="chatPopup">
+  <div class="popup-header">
+    <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:.9rem">⚕️</div>
+    <div class="popup-header-info">
+      <div class="popup-header-title">ErgoOT AI Assistant</div>
+      <div class="popup-header-sub">Online · Ready to help</div>
+    </div>
+    <button class="popup-close" onclick="togglePopupChat()">✕</button>
+  </div>
+  <div class="popup-messages" id="popupMessages">
+    <div class="msg msg-bot"><div class="msg-bubble" style="background:var(--gray-50);border:1px solid var(--gray-100);border-radius:4px 14px 14px 14px;padding:10px 14px;font-size:.82rem">Hi! I'm your ErgoOT AI — ask me about ergonomics, pain, stress, posture, or workstation setup.</div></div>
+  </div>
+  <div class="popup-input">
+    <input type="text" id="popupInput" placeholder="Ask about ergonomics or wellness..." onkeydown="if(event.key==='Enter')sendPopupMessage()" />
+    <button onclick="sendPopupMessage()">➤</button>
+  </div>
+</div>
+
+<!-- PREMIUM MODAL (no position:fixed — uses faux viewport) -->
+<div id="premiumModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:2000;background:rgba(0,0,0,.5);align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:var(--radius-xl);padding:36px;max-width:440px;width:90%;max-height:90vh;overflow-y:auto;position:relative">
+    <button onclick="closePremiumModal()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--gray-500)">✕</button>
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="font-size:2rem;margin-bottom:8px">⭐</div>
+      <h3 style="font-family:var(--font-display);font-size:1.5rem;color:var(--navy);margin-bottom:8px">Upgrade to Premium</h3>
+      <p style="font-size:.88rem;color:var(--gray-500)">Get full access to all assessments, expert consultations, and personalized treatment plans.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px">
+      <div style="background:var(--off-white);border-radius:var(--radius-md);padding:16px;border:2px solid var(--accent)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-weight:600;color:var(--navy)">Monthly Plan</span><span style="font-family:var(--font-display);font-size:1.3rem;color:var(--green-dark)">₹999/mo</span></div>
+        <div style="font-size:.78rem;color:var(--gray-500)">Full access, cancel anytime</div>
+      </div>
+      <div style="background:var(--off-white);border-radius:var(--radius-md);padding:16px;border:1.5px solid var(--gray-100)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-weight:600;color:var(--navy)">Annual Plan</span><span style="font-family:var(--font-display);font-size:1.3rem;color:var(--green-dark)">₹7,999/yr</span></div>
+        <div style="font-size:.78rem;color:var(--gray-500)">Save ₹3,989 · Includes 2 free consultations</div>
+      </div>
+    </div>
+    <div class="form-row"><label class="form-label">Email Address</label><input type="email" class="form-input" placeholder="your@email.com" /></div>
+    <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center" onclick="closePremiumModal()">Start Premium →</button>
+    <p style="font-size:.72rem;color:var(--gray-400);text-align:center;margin-top:10px">Secure payment · Cancel anytime · 7-day free trial</p>
+  </div>
+</div>
+
+<script>
+// ---- MOBILE NAV ----
+function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
+
+// ---- SCROLL HELPER ----
+function scrollToSection(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
+
+// ---- FADE UP OBSERVER ----
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+
+// ---- ASSESSMENT ----
+const questions=[
+  {q:'Do you experience any pain or discomfort in your neck, shoulders, or upper back during or after work?',opts:['No pain at all','Mild occasional discomfort','Moderate pain most days','Severe or constant pain']},
+  {q:'How would you describe your workstation setup?',opts:['Fully ergonomic and adjusted correctly','Mostly okay but some issues','Poor setup with known problems','I have never assessed my workstation']},
+  {q:'How long do you typically sit without taking a break?',opts:['Less than 30 minutes','30–60 minutes','1–2 hours','More than 2 hours']},
+  {q:'How would you rate your current fatigue levels during work?',opts:['I feel energized throughout the day','Mild fatigue by end of day','Moderate fatigue mid-afternoon','Severe fatigue — hard to concentrate']},
+  {q:'How often do you experience work-related stress?',opts:['Rarely or never','Occasionally (a few days/month)','Frequently (most days)','Constantly — it affects my daily life']},
+  {q:'Do you experience headaches or eye strain after screen use?',opts:['Never','Occasionally','A few times a week','Daily or near-daily']},
+  {q:'How is your overall mental wellbeing at work?',opts:['Very good — I feel positive and motivated','Okay — some up and down days','Struggling — often feel anxious or low','Poor — significant impact on daily functioning']},
+  {q:'How does your physical discomfort affect your work performance?',opts:['No impact at all','Minor impact — I push through it','Moderate impact — affects my focus','Major impact — affects output significantly']}
+];
+let currentQ=0;const answers=[];
+function renderQuestion(){
+  const q=questions[currentQ];
+  document.getElementById('assessStepLabel').textContent=`Question ${currentQ+1} of ${questions.length}`;
+  document.getElementById('assessQuestion').textContent=q.q;
+  document.getElementById('assessProgress').style.width=`${((currentQ)/questions.length)*100}%`;
+  const opts=document.getElementById('assessOptions');
+  opts.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const div=document.createElement('div');
+    div.className='assess-opt'+(answers[currentQ]===i?' selected':'');
+    div.innerHTML=`<div class="assess-opt-dot">${answers[currentQ]===i?'':''}${answers[currentQ]===i?'<span style="display:block;width:6px;height:6px;border-radius:50%;background:#fff;margin:auto"></span>':''}</div><span>${o}</span>`;
+    div.onclick=()=>{answers[currentQ]=i;renderQuestion()};
+    opts.appendChild(div);
+  });
+  document.getElementById('assessPrev').style.visibility=currentQ>0?'visible':'hidden';
+  document.getElementById('assessNext').textContent=currentQ===questions.length-1?'See Results →':'Next →';
+}
+function assessNext(){
+  if(answers[currentQ]===undefined){alert('Please select an answer to continue.');return}
+  if(currentQ<questions.length-1){currentQ++;renderQuestion()}
+  else showAssessResult();
+}
+function assessPrev(){if(currentQ>0){currentQ--;renderQuestion()}}
+function showAssessResult(){
+  const total=answers.reduce((a,b)=>a+b,0);
+  const max=(questions.length-1)*3;
+  const pct=Math.round((total/max)*100);
+  document.getElementById('assessQuestions').style.display='none';
+  const result=document.getElementById('assessResult');
+  result.style.display='block';
+  const scoreEl=document.getElementById('resultScore');
+  const scoreNum=document.getElementById('resultScoreNum');
+  const scoreLbl=document.getElementById('resultScoreLabel');
+  const title=document.getElementById('resultTitle');
+  const desc=document.getElementById('resultDesc');
+  const recs=document.getElementById('resultRecs');
+  scoreNum.textContent=pct+'%';
+  if(pct<35){
+    scoreEl.className='result-score low';scoreLbl.textContent='Low Risk';
+    title.textContent='Great News — Your Ergonomic Risk is Low';
+    desc.textContent='Your current habits and setup appear to be relatively healthy. Keep maintaining good practices and consider a full premium assessment to confirm your health across all dimensions.';
+    recs.innerHTML='<div class="result-rec">Continue your current movement and break habits</div><div class="result-rec">Consider a full workstation audit to maintain your low risk</div><div class="result-rec">Stay educated on ergonomic best practices</div>';
+  }else if(pct<65){
+    scoreEl.className='result-score medium';scoreLbl.textContent='Medium Risk';
+    title.textContent='Some Risk Areas Identified — Action Recommended';
+    desc.textContent='You have some ergonomic and wellness risk factors that should be addressed. A consultation with our experts can help you prevent progression to more serious conditions.';
+    recs.innerHTML='<div class="result-rec">Review your workstation setup — chair height, monitor position, keyboard placement</div><div class="result-rec">Implement a movement break every 30–45 minutes</div><div class="result-rec">Consider stress management techniques and structured breaks</div><div class="result-rec">Book a consultation with our OT specialist for a personalized plan</div>';
+  }else{
+    scoreEl.className='result-score high';scoreLbl.textContent='High Risk';
+    title.textContent='Elevated Risk — Professional Guidance Strongly Recommended';
+    desc.textContent='Your responses indicate significant ergonomic and wellbeing risk factors that need attention. We strongly recommend connecting with one of our OT professionals for a comprehensive assessment and personalized treatment plan.';
+    recs.innerHTML='<div class="result-rec">Book an urgent consultation with our Occupational Therapist</div><div class="result-rec">Begin immediate workstation modifications — do not wait</div><div class="result-rec">Start with gentle stretching breaks every 20–30 minutes</div><div class="result-rec">Consider our Premium Assessment Suite for a full health picture</div><div class="result-rec">Address both physical and mental wellbeing simultaneously</div>';
+  }
+  document.getElementById('assessProgress').style.width='100%';
+}
+function resetAssessment(){
+  currentQ=0;answers.length=0;
+  document.getElementById('assessQuestions').style.display='block';
+  document.getElementById('assessResult').style.display='none';
+  renderQuestion();
+}
+renderQuestion();
+
+// ---- CALENDAR ----
+(function(){
+  const cal=document.getElementById('bookingCal');
+  const days=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  days.forEach(d=>{const el=document.createElement('div');el.className='cal-day header';el.textContent=d;cal.appendChild(el)});
+  const avail=[3,4,5,9,10,11,12,16,17,18,23,24,25];
+  for(let i=0;i<2;i++){const el=document.createElement('div');el.className='cal-day empty';cal.appendChild(el)}
+  for(let d=1;d<=30;d++){
+    const el=document.createElement('div');
+    el.textContent=d;
+    if(avail.includes(d)){el.className='cal-day avail';el.onclick=()=>{document.querySelectorAll('.cal-day').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');document.getElementById('timeSlotRow').style.display='block'}}
+    else{el.className='cal-day';el.style.color='var(--gray-300)'}
+    cal.appendChild(el);
+  }
+})();
+function selectTime(el){document.querySelectorAll('.time-slot').forEach(t=>t.classList.remove('selected'));el.classList.add('selected')}
+function bookConsultation(){document.getElementById('bookingSuccess').style.display='block'}
+
+// ---- CHATBOT ----
+const botResponses={
+  'ergonomics':['Ergonomics is the science of designing the work environment to fit the worker. Key principles include keeping your monitor at eye level, elbows at 90°, and taking regular movement breaks. Would you like specific tips for your setup?'],
+  'posture':['Good posture while sitting involves: feet flat on the floor, knees at 90°, lumbar support at the curve of your lower back, and ears aligned over shoulders. Try setting a reminder every 30 min to check your posture.'],
+  'neck':['Neck pain is often caused by forward head posture — for every inch your head moves forward, the load on your spine increases by ~10 lbs. Key fixes: raise your monitor, use a document holder, and do chin tuck exercises regularly.'],
+  'back':['Back pain from desk work is usually from prolonged sitting without proper lumbar support. Ensure your chair has lumbar support, hips slightly above knees, and stand/walk for 2–3 min every 45 min.'],
+  'fatigue':['Work fatigue can be physical or mental. Key strategies: structured 5-min breaks every 60 min, hydration (300ml+ per hour), natural lighting, and a clear end-of-workday routine to help your brain decompress.'],
+  'stress':['Workplace stress management involves identifying triggers, building boundaries, and using evidence-based techniques like box breathing (4-4-4-4 counts), scheduled worry time, and regular physical movement to discharge cortisol.'],
+  'anxiety':['Anxiety in the workplace is common and manageable. Techniques like grounding (5-4-3-2-1 senses), progressive muscle relaxation, and structured problem-solving can help. If it significantly affects your daily function, connecting with a mental health professional is recommended.'],
+  'depression':['Feeling persistently low, losing interest in activities, or struggling to concentrate can be signs worth taking seriously. Workplace factors often contribute. I\'d encourage you to consider speaking with a mental health professional — it\'s a sign of strength, not weakness.'],
+  'workstation':['A proper workstation setup: monitor top third at eye level, screen 50–70cm away, elbows at desk height, wrists neutral, feet flat. Invest in a chair with adjustable lumbar support and armrests if possible.'],
+  'eye':['For eye strain: follow the 20-20-20 rule (every 20 min, look 20 feet away for 20 sec), blink consciously, adjust brightness to match ambient light, and position your screen at arm\'s length.'],
+  'exercise':['For desk workers: try neck rolls, shoulder blade squeezes, seated hip flexor stretches, and calf raises at your desk. Even 5 min of movement every hour significantly reduces MSK risk.'],
+  'hydration':['Most desk workers are chronically mildly dehydrated — this affects concentration, mood, and physical comfort. Aim for at least 2 litres daily, and keep water visible at your workstation as a prompt.'],
+  'default':['That\'s a great question about workplace wellness. Based on OT principles, I\'d recommend starting with an assessment of your current situation and habits. If you\'d like more specific guidance on this topic, our expert team can provide a personalized plan.']
+};
+function getBotResponse(msg){
+  const lower=msg.toLowerCase();
+  for(const[key,resps] of Object.entries(botResponses)){
+    if(lower.includes(key))return resps[0];
+  }
+  return botResponses.default[0];
+}
+function appendMsg(container,text,role){
+  const div=document.createElement('div');
+  div.className=`msg msg-${role}`;
+  div.innerHTML=`${role==='bot'?'<div class="msg-label">ErgoOT AI</div>':''}<div class="msg-bubble">${text}</div>`;
+  container.appendChild(div);
+  container.scrollTop=container.scrollHeight;
+}
+function sendChatMessage(){
+  const inp=document.getElementById('chatboxInput');
+  const msg=inp.value.trim();
+  if(!msg)return;
+  const container=document.getElementById('chatboxMessages');
+  appendMsg(container,msg,'user');
+  inp.value='';
+  setTimeout(()=>{
+    const resp=getBotResponse(msg);
+    appendMsg(container,resp,'bot');
+    if(Math.random()>.4){
+      const cta=document.createElement('div');
+      cta.className='msg msg-bot';
+      cta.innerHTML=`<div class="expert-cta-msg">💼 <strong>Want personalized guidance?</strong> Our qualified OT professionals can provide a detailed assessment and treatment plan tailored to you.<br><button class="expert-cta-btn" onclick="scrollToSection('consultation')">Connect with an Expert →</button></div>`;
+      container.appendChild(cta);
+      container.scrollTop=container.scrollHeight;
+    }
+  },900);
+}
+function sendToChatbox(el){
+  const topic=el.textContent.replace(/^[^\s]+\s/,'');
+  document.getElementById('chatboxInput').value=`Tell me about ${topic}`;
+  scrollToSection('chatbot-section');
+  setTimeout(sendChatMessage,300);
+}
+// Popup chat
+let popupOpen=false;
+function togglePopupChat(){popupOpen=!popupOpen;document.getElementById('chatPopup').classList.toggle('open',popupOpen)}
+function sendPopupMessage(){
+  const inp=document.getElementById('popupInput');
+  const msg=inp.value.trim();
+  if(!msg)return;
+  const container=document.getElementById('popupMessages');
+  appendMsg(container,msg,'user');
+  inp.value='';
+  setTimeout(()=>appendMsg(container,getBotResponse(msg),'bot'),800);
+}
+
+// ---- PREMIUM MODAL ----
+function showPremiumModal(){document.getElementById('premiumModal').style.display='flex'}
+function closePremiumModal(){document.getElementById('premiumModal').style.display='none'}
+
+// ---- CONTACT FORM ----
+function submitContact(){document.getElementById('contactSuccess').style.display='block'}
+</script>
+</body>
+</html>
